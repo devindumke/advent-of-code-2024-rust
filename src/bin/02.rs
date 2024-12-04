@@ -28,56 +28,56 @@ fn get_difference(prev: u32, curr: u32, direction: Direction) -> Option<u32> {
         Direction::Decreasing => prev.checked_sub(curr),
     }
 }
-fn is_safe(vec: &Vec<u32>, use_dampener: bool) -> bool {
+fn is_safe(report: &[u32], use_dampener: bool) -> bool {
     match use_dampener {
         false => {
-            find_unsafe_level(vec, Direction::Increasing).is_none()
-                || find_unsafe_level(vec, Direction::Decreasing).is_none()
+            find_unsafe_level(report, Direction::Increasing).is_none()
+                || find_unsafe_level(report, Direction::Decreasing).is_none()
         }
         true => {
-            is_safe_with_dampener(vec, Direction::Increasing)
-                || is_safe_with_dampener(vec, Direction::Decreasing)
+            is_safe_with_dampener(report, Direction::Increasing)
+                || is_safe_with_dampener(report, Direction::Decreasing)
         }
     }
 }
 
-fn is_safe_with_dampener(vec: &Vec<u32>, direction: Direction) -> bool {
-    let bad_level_index = find_unsafe_level(vec, direction);
+fn is_safe_with_dampener(report: &[u32], direction: Direction) -> bool {
+    let bad_level_index = find_unsafe_level(report, direction);
     if bad_level_index.is_none() {
         return true;
     }
     let bad_level_index = bad_level_index.unwrap();
-    for element_to_remove in
+    for possible_bad_level in
         bad_level_index.saturating_sub(1usize)..bad_level_index.saturating_add(1usize)
     {
-        if try_remove_element(vec, element_to_remove, direction) {
+        if try_remove_level(report, possible_bad_level, direction) {
             return true;
         }
     }
     false
 }
 
-fn try_remove_element(vec: &Vec<u32>, element_to_remove: usize, direction: Direction) -> bool {
-    if element_to_remove >= vec.len() {
+fn try_remove_level(report: &[u32], level_to_remove: usize, direction: Direction) -> bool {
+    if level_to_remove >= report.len() {
         return false;
     }
-    let mut vec = vec.clone();
-    vec.remove(element_to_remove);
-    find_unsafe_level(&vec, direction).is_none()
+    let mut report = report.to_vec();
+    report.remove(level_to_remove);
+    find_unsafe_level(&report, direction).is_none()
 }
 
-fn find_unsafe_level(vec: &Vec<u32>, direction: Direction) -> Option<usize> {
-    let mut prev_value: Option<u32> = None;
-    for (index, val) in vec.iter().enumerate() {
-        if prev_value.is_none() {
-            prev_value = Some(*val);
+fn find_unsafe_level(report: &[u32], direction: Direction) -> Option<usize> {
+    let mut prev_level: Option<u32> = None;
+    for (index, level) in report.iter().enumerate() {
+        if prev_level.is_none() {
+            prev_level = Some(*level);
             continue;
         }
-        let difference = get_difference(prev_value.unwrap(), *val, direction);
+        let difference = get_difference(prev_level.unwrap(), *level, direction);
         if difference.is_none_or(|x| !(1..=3).contains(&x)) {
             return Some(index);
         }
-        prev_value = Some(*val);
+        prev_level = Some(*level);
     }
     None
 }

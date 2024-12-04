@@ -80,11 +80,11 @@ impl Coordinate {
     }
 }
 
-fn get_char_from_grid<'a>(grid: &'a Vec<Vec<char>>, coordinate: &Coordinate) -> Option<&'a char> {
+fn get_char_from_grid<'a>(grid: &'a [Vec<char>], coordinate: &Coordinate) -> Option<&'a char> {
     grid.get(coordinate.y).and_then(|row| row.get(coordinate.x))
 }
 
-fn get_xmas_count(grid: &Vec<Vec<char>>) -> u32 {
+fn get_xmas_count(grid: &[Vec<char>]) -> u32 {
     let mut count = 0;
     for x in 0..grid.len() {
         'y: for y in 0..grid[0].len() {
@@ -127,7 +127,7 @@ fn get_xmas_count(grid: &Vec<Vec<char>>) -> u32 {
     count
 }
 
-fn get_x_mas_count(grid: &Vec<Vec<char>>) -> u32 {
+fn get_x_mas_count(grid: &[Vec<char>]) -> u32 {
     let mut count = 0;
     for x in 0..grid.len() {
         'y: for y in 0..grid[0].len() {
