@@ -1,4 +1,4 @@
-<img src="./.assets/christmas_ferris.png" width="164">
+<img src="./.assets/christmas_ferris.png" width="164" alt="ferris with a santa hat">
 
 # 🎄 Advent of Code {year}
 
@@ -15,8 +15,9 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 | [Day 2](./src/bin/02.rs) | `157.6µs` | `270.8µs` |
 | [Day 3](./src/bin/03.rs) | `456.9µs` | `484.3µs` |
 | [Day 4](./src/bin/04.rs) | `346.5µs` | `162.4µs` |
+| [Day 5](./src/bin/05.rs) | `17.5ms` | `27.6ms` |
 
-**Total: 2.01ms**
+**Total: 47.11ms**
 <!--- benchmarking table --->
 
 ---
@@ -231,7 +232,7 @@ cargo clippy
 1. Install [`aoc-cli`](https://github.com/scarvalhojr/aoc-cli/) via cargo: `cargo install aoc-cli --version 0.12.0`
 2. Create the file `<home_directory>/.adventofcode.session` and paste your session cookie into it. To retrieve the session cookie, press F12 anywhere on the Advent of Code website to open your browser developer tools. Look in _Cookies_ under the _Application_ or _Storage_ tab, and copy out the `session` cookie value. [^1]
 
-Once installed, you can use the [download command](#download-input--description-for-a-day), the read command, and automatically submit solutions via the [`--submit` flag](#submitting-solutions).
+Once installed, you can use the download command, the read command, and automatically submit solutions via the [`--submit` flag](#submitting-solutions).
 
 ### Automatically track ⭐️ progress in the readme
 
