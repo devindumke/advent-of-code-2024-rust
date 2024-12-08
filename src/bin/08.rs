@@ -79,7 +79,7 @@ fn get_antinode_1(far: Coordinate, near: Coordinate, boundary: Coordinate) -> Op
 }
 
 fn get_antinode_2(far: Coordinate, near: Coordinate, boundary: Coordinate) -> Vec<Coordinate> {
-    let mut antinodes = vec![near, far];
+    let mut antinodes = vec![near];
     let dx = near.x - far.x;
     let dy = near.y - far.y;
 
