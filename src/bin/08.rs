@@ -82,7 +82,7 @@ fn get_antinode_2(far: Coordinate, near: Coordinate, boundary: Coordinate) -> Ve
     let mut antinodes = vec![near, far];
     let dx = near.x - far.x;
     let dy = near.y - far.y;
-    
+
     let mut x = near.x;
     let mut y = near.y;
     loop {
@@ -93,7 +93,7 @@ fn get_antinode_2(far: Coordinate, near: Coordinate, boundary: Coordinate) -> Ve
             y += dy;
         } else {
             return antinodes;
-        } 
+        }
     }
 }
 
@@ -118,22 +118,26 @@ pub fn part_one(input: &str) -> Option<u32> {
     let grid = read_grid(input);
     let boundary_coordinate = get_boundary_coordinate(&grid);
     let nodes = identify_nodes(&grid);
-    let antinodes = nodes.iter()
-        .flat_map(|n| get_antinodes_1(n.as_slice(), boundary_coordinate))
-        .unique()
-        .collect::<Vec<_>>();
-    Some(antinodes.len() as u32)
+    Some(
+        nodes
+            .iter()
+            .flat_map(|n| get_antinodes_1(n.as_slice(), boundary_coordinate))
+            .unique()
+            .count() as u32,
+    )
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
     let grid = read_grid(input);
     let boundary_coordinate = get_boundary_coordinate(&grid);
     let nodes = identify_nodes(&grid);
-    let antinodes = nodes.iter()
-        .flat_map(|n| get_antinodes_2(n.as_slice(), boundary_coordinate))
-        .unique()
-        .collect::<Vec<_>>();
-    Some(antinodes.len() as u32)
+    Some(
+        nodes
+            .iter()
+            .flat_map(|n| get_antinodes_2(n.as_slice(), boundary_coordinate))
+            .unique()
+            .count() as u32,
+    )
 }
 
 #[cfg(test)]
